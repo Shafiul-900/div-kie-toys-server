@@ -48,7 +48,7 @@ async function run() {
     });
 
     // update 
-    app.put('/toys/:id', async(req, res) => {
+    app.patch('/toys/:id', async(req, res) => {
       const id = req.params.id;
       const filter = {_id: new ObjectId(id)};
       const options = {upsert: true}

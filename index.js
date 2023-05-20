@@ -47,6 +47,30 @@ async function run() {
       res.send(result);
     });
 
+    // update 
+    app.put('/toys/:id', async(req, res) => {
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)};
+      const options = {upsert: true}
+      const updateToys = req.body;
+      const toys = {
+        $set: {
+          seller_name: updateToys.seller_name,
+          email: updateToys.email,
+          photo: updateToys.photo,
+          toys_name: updateToys.toys_name,
+          sub_category:updateToys.sub_category, 
+          price: updateToys.price, 
+          rating: updateToys.rating, 
+          quantity: updateToys.quantity, 
+          description: updateToys.description, 
+          title: updateToys.title
+        }
+      }
+      const result = await toysCollection.updateOne(filter, toys, options);
+      res.send(result);
+    })
+
     // get data mongoDB data 
     app.get('/toys', async(req, res)=> {
         const result = await toysCollection.find().toArray();

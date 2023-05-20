@@ -28,6 +28,17 @@ async function run() {
 
     const toysCollection = client.db('toysDB').collection('toys');
 
+    // get email spacip data 
+    app.get('/toys', async(req, res) => {
+      console.log(req.query);
+       let query = {};
+       if(req.query?.email){
+        query = {email: req.query.email}
+       }
+      const result = await toysCollection.find(query).toArray();
+      res.send(result);
+    });
+
     // sent data toys mongoDB
     app.post('/toys', async(req, res) => {
       const toys = req.body;
@@ -41,6 +52,7 @@ async function run() {
         const result = await toysCollection.find().toArray();
         res.send(result);
     });
+
 
     // get spacip data get
     app.get('/toys/:id', async(req, res) => {

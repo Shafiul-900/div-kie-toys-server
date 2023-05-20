@@ -28,12 +28,21 @@ async function run() {
 
     const toysCollection = client.db('toysDB').collection('toys');
 
+    // sent data toys mongoDB
+    app.post('/toys', async(req, res) => {
+      const toys = req.body;
+      console.log(toys);
+      const result = await toysCollection.insertOne(toys)
+      res.send(result);
+    });
+
     // get data mongoDB data 
     app.get('/toys', async(req, res)=> {
         const result = await toysCollection.find().toArray();
         res.send(result);
-    })
+    });
 
+    // get spacip data get
     app.get('/toys/:id', async(req, res) => {
       const id = req.params.id;
       console.log(id)

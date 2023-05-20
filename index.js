@@ -53,6 +53,13 @@ async function run() {
         res.send(result);
     });
 
+    // delet data in mongodb
+    app.delete('/toys/:id', async(req, res) => {
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)};
+      const result = await toysCollection.deleteOne(query);
+      res.send(result);
+    });
 
     // get spacip data get
     app.get('/toys/:id', async(req, res) => {
